@@ -3,11 +3,13 @@ const router = express.Router();
 const Groq = require("groq-sdk");
 const { requireAuth } = require("../middleware/auth");
 
-// Diagnostic endpoint — check if GROQ_API_KEY is present (no auth needed)
+// Diagnostic endpoint — check env vars (no auth needed)
 router.get("/status", (req, res) => {
   const keyPresent = !!process.env.GROQ_API_KEY;
   const keyPrefix = keyPresent ? process.env.GROQ_API_KEY.substring(0, 10) + "..." : "NOT SET";
-  res.json({ groqKeyPresent: keyPresent, keyPrefix });
+  // List all env keys to debug Railway injection
+  const allKeys = Object.keys(process.env).filter(k => !k.includes('SECRET') && !k.includes('PASSWORD') && !k.includes('URI'));
+  res.json({ groqKeyPresent: keyPresent, keyPrefix, allEnvKeys: allKeys });
 });
 
 router.post("/chat", requireAuth, async (req, res) => {
