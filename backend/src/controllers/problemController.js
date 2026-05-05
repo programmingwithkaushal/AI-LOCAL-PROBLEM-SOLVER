@@ -65,6 +65,9 @@ const createProblem = async (req, res) => {
 
     const cat = detectCategory(title + " " + description);
     
+    // Generate AI Solution dynamically
+    const aiSolution = await generateSolution(title + " " + description, cat);
+    
     // Generate unique problem ID
     const problemId = generateProblemId();
     
@@ -78,7 +81,7 @@ const createProblem = async (req, res) => {
       location: location ? JSON.parse(location) : null,
       image: req.file ? req.file.path : null, // Cloudinary URL
       category: cat,
-      aiSolution: generateSolution(title + " " + description, cat),
+      aiSolution: aiSolution,
       authority: AUTHORITY_MAP[cat],
       status: "Open",
       statusHistory: [{
