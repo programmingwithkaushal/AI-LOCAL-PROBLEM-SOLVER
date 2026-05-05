@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Groq = require("groq-sdk");
-const requireAuth = require("../middleware/auth");
+const { requireAuth } = require("../middleware/auth");
 
 router.post("/chat", requireAuth, async (req, res) => {
   try {
