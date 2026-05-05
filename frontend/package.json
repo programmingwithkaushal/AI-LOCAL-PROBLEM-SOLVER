@@ -4,13 +4,19 @@
   "description": "Frontend for SolvIt AI Problem Solver",
   "main": "src/pages/index.html",
   "scripts": {
-    "dev": "python3 -m http.server 8080 --directory src/pages",
+    "start": "serve src/pages -l ${PORT:-8080}",
+    "dev": "serve src/pages -l ${PORT:-8080}",
     "build": "echo 'No build process needed for static files'",
-    "serve": "python3 -m http.server 8080 --directory src/pages"
+    "serve": "serve src/pages -l ${PORT:-8080}"
   },
-  "dependencies": {},
-  "devDependencies": {},
-  "keywords": ["frontend", "web", "problem-solver"],
+  "dependencies": {
+    "serve": "^14.2.6"
+  },
+  "keywords": [
+    "frontend",
+    "web",
+    "problem-solver"
+  ],
   "author": "SolvIt Team",
   "license": "MIT"
 }
