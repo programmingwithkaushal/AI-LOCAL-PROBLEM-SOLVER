@@ -159,7 +159,7 @@ Keep the response concise, actionable, and extremely practical. Do not include i
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",
       temperature: 0.5,
       max_tokens: 1024,
     });
