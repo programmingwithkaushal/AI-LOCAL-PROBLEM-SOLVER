@@ -5,11 +5,18 @@ const { requireAuth } = require("../middleware/auth");
 
 // Diagnostic endpoint — check env vars (no auth needed)
 router.get("/status", (req, res) => {
-  const keyPresent = !!process.env.GROQ_API_KEY;
-  const keyPrefix = keyPresent ? process.env.GROQ_API_KEY.substring(0, 10) + "..." : "NOT SET";
-  // List all env keys to debug Railway injection
-  const allKeys = Object.keys(process.env).filter(k => !k.includes('SECRET') && !k.includes('PASSWORD') && !k.includes('URI'));
-  res.json({ groqKeyPresent: keyPresent, keyPrefix, allEnvKeys: allKeys });
+  const allKeys = Object.keys(process.env);
+  const groqRelated = allKeys.filter(k => k.toUpperCase().includes("GROQ"));
+  const customKeys = allKeys.filter(k => 
+    k.includes("GROQ") || k.includes("MONGO") || k.includes("JWT") || 
+    k.includes("CLOUD") || k.includes("NODE_ENV") || k.includes("PORT")
+  );
+  res.json({
+    groqKeyPresent: !!process.env.GROQ_API_KEY,
+    groqRelatedKeys: groqRelated,
+    customKeys: customKeys,
+    totalEnvVars: allKeys.length
+  });
 });
 
 router.post("/chat", requireAuth, async (req, res) => {
