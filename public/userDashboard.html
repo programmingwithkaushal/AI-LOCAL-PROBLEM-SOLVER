@@ -370,10 +370,202 @@
     </div>
   </div>
 
+  <!-- FLOATING AI CHATBOT -->
+  <div class="ai-chat-widget" id="aiChatWidget">
+    <button class="ai-chat-toggle" id="aiChatToggle" onclick="toggleAiChat()">
+      <span style="font-size: 24px;">🤖</span>
+    </button>
+    <div class="ai-chat-window" id="aiChatWindow">
+      <div class="ai-chat-header">
+        <span style="font-size: 18px;">🤖</span>
+        <strong>SolvIt AI Assistant</strong>
+        <button class="ai-chat-close" onclick="toggleAiChat()">✕</button>
+      </div>
+      <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-msg ai">Hello! I'm SolvIt AI. How can I help you with your civic issues today?</div>
+      </div>
+      <div class="ai-chat-input-area">
+        <input type="text" id="aiChatInput" placeholder="Ask AI something..." onkeydown="if(event.key==='Enter') sendAiMessage()" />
+        <button class="btn-primary btn-sm" onclick="sendAiMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <script src="js/app.js"></script>
+  
+  <style>
+    /* AI Chatbot Styles */
+    .ai-chat-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .ai-chat-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #8e44ad);
+      border: none;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+    .ai-chat-toggle:hover {
+      transform: scale(1.1);
+    }
+    .ai-chat-window {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 350px;
+      height: 450px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ai-chat-window.open {
+      display: flex;
+    }
+    .ai-chat-header {
+      background: linear-gradient(135deg, var(--primary), #8e44ad);
+      color: white;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Syne', sans-serif;
+    }
+    .ai-chat-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .ai-chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ai-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .ai-msg.ai {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .ai-msg.user {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-msg.loading {
+      background: transparent;
+      border: none;
+      font-style: italic;
+      color: var(--text2);
+    }
+    .ai-chat-input-area {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+    }
+    .ai-chat-input-area input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      outline: none;
+    }
+    .ai-chat-input-area input:focus {
+      border-color: var(--primary);
+    }
+  </style>
+
+  <script>
+    function toggleAiChat() {
+      const win = document.getElementById('aiChatWindow');
+      win.classList.toggle('open');
+    }
+
+    async function sendAiMessage() {
+      const input = document.getElementById('aiChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const msgs = document.getElementById('aiChatMessages');
+      
+      // Add user message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'ai-msg user';
+      userDiv.textContent = text;
+      msgs.appendChild(userDiv);
+      
+      input.value = '';
+      msgs.scrollTop = msgs.scrollHeight;
+
+      // Add loading
+      const loadDiv = document.createElement('div');
+      loadDiv.className = 'ai-msg ai loading';
+      loadDiv.textContent = 'Thinking...';
+      msgs.appendChild(loadDiv);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      try {
+        const token = localStorage.getItem('solvit_token');
+        const res = await fetch('/api/ai/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await res.json();
+        
+        msgs.removeChild(loadDiv);
+
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'ai-msg ai';
+        aiDiv.innerHTML = data.reply ? data.reply.replace(/\\n/g, '<br>') : (data.error || 'Error occurred');
+        msgs.appendChild(aiDiv);
+      } catch (err) {
+        msgs.removeChild(loadDiv);
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'ai-msg ai';
+        aiDiv.textContent = 'Connection error.';
+        msgs.appendChild(aiDiv);
+      }
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+  </script>
 </body>
 
 </html>

@@ -12,6 +12,7 @@ const problemRoutes = require("./routes/problems");
 const chatRoutes = require("./routes/chat");
 const debugRoutes = require("./routes/debug");
 const adminRoutes = require("./routes/adminRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +32,7 @@ app.use("/api/problems", problemRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/debug", debugRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
