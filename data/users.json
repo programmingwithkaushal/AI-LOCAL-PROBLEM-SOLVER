@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "a270675d-4c54-422a-abfc-ad505e95b3ac",
+      "name": "Rahul Sharma",
+      "email": "kaushal.aiml.000@gmail.com",
+      "password": "$2a$12$u3VuDdPAsyRa94OY/H3Pd.xRO/16X3vf8vmmvrZZdZUea7/pBf.F.",
+      "avatar": "R",
+      "createdAt": "2026-04-28T12:25:26.072Z"
+    },
+    {
+      "id": "b270675d-4c54-422a-abfc-ad505e95b3ac",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "$2a$12$u3VuDdPAsyRa94OY/H3Pd.xRO/16X3vf8vmmvrZZdZUea7/pBf.F.",
+      "avatar": "J",
+      "createdAt": "2026-04-28T12:25:26.072Z"
+    },
+    {
+      "id": "2056d38f-03f2-427e-a82d-2d11401d4a71",
+      "name": "kaushal sharma",
+      "email": "ks@gmail.com",
+      "password": "$2a$12$oXYkCI1.PcrYuy.QFQDsM.h9oXsF.LzXFpTCz2zF/aIsLjB1W.iPq",
+      "avatar": "K",
+      "createdAt": "2026-05-05T15:40:39.248Z"
+    }
+  ]
+}

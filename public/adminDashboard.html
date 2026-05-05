@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - SolvIt</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    .admin-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    .admin-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .admin-nav {
+      display: flex;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .admin-nav-btn {
+      padding: 16px 24px;
+      background: none;
+      border: none;
+      color: var(--text2);
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .admin-nav-btn:hover {
+      color: var(--text);
+      background: var(--surf2);
+    }
+
+    .admin-nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: var(--surf2);
+    }
+
+    .admin-content {
+      padding: 24px;
+    }
+
+    .admin-section {
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: var(--text2);
+      font-size: 14px;
+    }
+
+    .user-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+
+    .user-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .user-table th {
+      background: var(--surf2);
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .user-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .user-table tr:hover {
+      background: var(--surf2);
+    }
+
+    .user-status {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .user-status.active {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .user-status.blocked {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .action-btn.block {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .action-btn.unblock {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .action-btn.delete {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .content-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .content-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .content-table th {
+      background: var(--surf2);
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .content-table tr:hover {
+      background: var(--surf2);
+    }
+
+    .content-title {
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .content-title:hover {
+      color: var(--accent);
+    }
+
+    .content-meta {
+      color: var(--text2);
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Admin Header -->
+  <header class="admin-header">
+    <div class="admin-title">🛡️ Admin Dashboard</div>
+    <div class="admin-user">
+      <div class="admin-avatar">A</div>
+      <div>
+        <div id="adminName">Admin</div>
+        <div style="color: var(--text2); font-size: 12px;">Administrator</div>
+      </div>
+      <button class="btn-sm" onclick="adminLogout()" style="margin-left: 16px;">🚪 Logout</button>
+    </div>
+  </header>
+
+  <!-- Admin Navigation -->
+  <nav class="admin-nav">
+    <button class="admin-nav-btn active" onclick="showAdminSection('overview')">📊 Overview</button>
+    <button class="admin-nav-btn" onclick="showAdminSection('users')">👥 Users</button>
+    <button class="admin-nav-btn" onclick="showAdminSection('problems')">📋 Problems</button>
+    <button class="admin-nav-btn" onclick="showAdminSection('comments')">💬 Comments</button>
+    <button class="admin-nav-btn" onclick="showAdminSection('chat')">💬 Chat</button>
+  </nav>
+
+  <!-- Admin Content -->
+  <main class="admin-content">
+    <!-- Overview Section -->
+    <section id="admin-overview" class="admin-section active">
+      <h2 style="margin-bottom: 24px;">📊 System Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="totalUsers">0</div>
+          <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="totalProblems">0</div>
+          <div class="stat-label">Total Problems</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="totalComments">0</div>
+          <div class="stat-label">Total Comments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="blockedUsers">0</div>
+          <div class="stat-label">Blocked Users</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Users Section -->
+    <section id="admin-users" class="admin-section">
+      <h2 style="margin-bottom: 24px;">👥 User Management</h2>
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="usersSearchInput" placeholder="🔍 Search users by name, email..."
+          style="width: 100%; max-width: 400px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);"
+          oninput="filterUsers()">
+      </div>
+      <div class="user-table">
+        <table>
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>User ID</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Problems Posted</th>
+              <th>Comments</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr>
+              <td colspan="8" style="text-align: center; padding: 40px; color: var(--text2);">
+                Loading users...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section id="admin-problems" class="admin-section">
+      <h2 style="margin-bottom: 24px;">📋 Problem Management</h2>
+      <div style="margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <input type="text" id="problemsSearchInput"
+          placeholder="🔍 Search problems by title, category, status, author..."
+          style="width: 100%; max-width: 400px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);"
+          oninput="filterProblems()">
+        <input type="text" id="problemIdSearchInput" placeholder="🔍 Search by Problem ID..."
+          style="width: 100%; max-width: 250px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);"
+          oninput="searchByProblemId()">
+        <button class="btn-sm" onclick="searchByProblemId()" style="padding: 12px 20px;">🔍 Search ID</button>
+      </div>
+      <div class="content-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Problem ID</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="problemsTableBody">
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 40px; color: var(--text2);">
+                Loading problems...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section id="admin-comments" class="admin-section">
+      <h2 style="margin-bottom: 24px;">💬 Comment Management</h2>
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="commentsSearchInput" placeholder="🔍 Search comments by text, author, problem..."
+          style="width: 100%; max-width: 400px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);"
+          oninput="filterComments()">
+      </div>
+      <div class="content-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Comment</th>
+              <th>Author</th>
+              <th>Problem</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="commentsTableBody">
+            <tr>
+              <td colspan="5" style="text-align: center; padding: 40px; color: var(--text2);">
+                Loading comments...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Chat Section -->
+    <section id="admin-chat" class="admin-section">
+      <h2 style="margin-bottom: 24px;">💬 Chat Management</h2>
+      <div style="margin-bottom: 20px;">
+        <input type="text" id="chatSearchInput" placeholder="🔍 Search chat messages by text, author, room..."
+          style="width: 100%; max-width: 400px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);"
+          oninput="filterChat()">
+      </div>
+      <div class="content-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Message</th>
+              <th>Author</th>
+              <th>Room</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="chatTableBody">
+            <tr>
+              <td colspan="5" style="text-align: center; padding: 40px; color: var(--text2);">
+                Loading chat messages...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="alert" style="position: fixed; top: 20px; right: 20px; z-index: 1000; display: none;"></div>
+
+  <script src="js/adminDashboard.js"></script>
+</body>
+
+</html>

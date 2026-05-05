@@ -1,0 +1,44 @@
+{
+  "problems": [
+    {
+      "id": "d1a08072-f9b9-4b0e-8b46-2ff810091fac",
+      "title": "Pothole on our street",
+      "description": "Getting to much trouble",
+      "userName": "Rahul Sharma",
+      "userId": "a270675d-4c54-422a-abfc-ad505e95b3ac",
+      "userAvatar": "R",
+      "location": null,
+      "image": "/uploads/b7be55d3-66d9-4d43-89f5-066e1fb8237f.jpg",
+      "category": "road",
+      "aiSolution": "**Problem Analysis:** Road damage is a public safety hazard and authorities have legal obligation to repair it promptly.\n\n**Root Cause:** Potholes form due to poor drainage, overloaded vehicles, aging bitumen surfaces, or substandard construction materials.\n\n**Immediate Action:** Alert local police to place warning cones if accident-prone. File complaint on CPGRAMS with exact GPS coordinates and photos.\n\n**Long-Term Fix:** Demand construction using CC (Cement Concrete) roads instead of bitumen for permanent solution. Push for proper drainage channels alongside road repair.\n\n**Legal Angle:** Under Motor Vehicles Act, if an accident occurs due to a pothole, the responsible authority can be held liable for negligence. Use this as leverage in your complaint.",
+      "authority": {
+        "authority": "Public Works Department (PWD) / NHAI for Highways",
+        "platform": "MyGov Portal / CPGRAMS (cpgrams.gov.in) / State PWD website",
+        "steps": [
+          "Photograph road damage with landmarks visible",
+          "Note exact GPS location and nearest landmark",
+          "File on CPGRAMS portal or PWD website",
+          "Contact local Ward Councillor for faster action",
+          "Quote Motor Vehicles Act if accident risk exists",
+          "Follow up weekly with complaint reference number"
+        ]
+      },
+      "status": "Open",
+      "votes": 1,
+      "votedBy": [
+        "a270675d-4c54-422a-abfc-ad505e95b3ac"
+      ],
+      "comments": [
+        {
+          "id": "c735524d-5458-46fe-aecc-ec6987b4c3c2",
+          "userId": "a270675d-4c54-422a-abfc-ad505e95b3ac",
+          "userName": "Rahul Sharma",
+          "userAvatar": "R",
+          "text": "Contact your nearby authority",
+          "createdAt": "2026-04-28T12:36:48.707Z"
+        }
+      ],
+      "createdAt": "2026-04-28T12:36:02.493Z"
+    }
+  ]
+}

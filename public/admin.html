@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - SolvIt</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-login {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .admin-login h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--accent);
+    }
+    .admin-login .form-group {
+      margin-bottom: 20px;
+    }
+    .admin-login label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .admin-login input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--background);
+      color: var(--text);
+      font-size: 14px;
+    }
+    .admin-login input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+    .admin-login .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .admin-login .btn-primary:hover {
+      background: #6366f1;
+      transform: translateY(-1px);
+    }
+    .admin-badge {
+      display: inline-block;
+      background: #dc2626;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-login">
+    <h2>🔐 Admin Panel <span class="admin-badge">ADMIN</span></h2>
+    <form id="adminLoginForm">
+      <div class="form-group">
+        <label for="adminEmail">Admin Email</label>
+        <input type="email" id="adminEmail" required placeholder="Enter admin email">
+      </div>
+      <div class="form-group">
+        <label for="adminPassword">Admin Password</label>
+        <input type="password" id="adminPassword" required placeholder="Enter admin password">
+      </div>
+      <button type="submit" class="btn-primary" id="adminLoginBtn">
+        🔐 Login to Admin Panel
+      </button>
+    </form>
+    <div id="alert" style="margin-top: 20px; display: none;"></div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

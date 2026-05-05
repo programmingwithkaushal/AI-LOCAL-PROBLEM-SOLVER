@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolvIt — Login & Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #07070d;
+      --surface: #111118;
+      --surface2: #18181f;
+      --border: #252530;
+      --border2: #30303f;
+      --accent: #6c5ce7;
+      --accent2: #a29bfe;
+      --accent3: #00cec9;
+      --text: #eeeef5;
+      --text2: #8888a8;
+      --text3: #4a4a68;
+      --green: #00b894;
+      --red: #e17055;
+      --gold: #fdcb6e;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      position: relative;
+      background: linear-gradient(145deg, #0d0d1a 0%, #111128 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .left-panel {
+        display: none;
+      }
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(108, 92, 231, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0, 206, 201, 0.1) 0%, transparent 50%);
+    }
+
+    .left-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(108, 92, 231, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 92, 231, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .left-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 60px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+    }
+
+    .brand-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .brand-name em {
+      color: var(--accent2);
+      font-style: normal;
+    }
+
+    .left-headline {
+      font-family: 'Syne', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
+    }
+
+    .left-headline span {
+      color: var(--accent2);
+    }
+
+    .left-sub {
+      font-size: 16px;
+      color: var(--text2);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 48px;
+    }
+
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .feature-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(108, 92, 231, 0.15);
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: var(--text2);
+    }
+
+    .feature-text strong {
+      color: var(--text);
+      display: block;
+      font-size: 15px;
+    }
+
+    /* FLOATING CARDS */
+    .float-cards {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .float-card {
+      background: rgba(17, 17, 24, 0.9);
+      border: 1px solid var(--border2);
+      backdrop-filter: blur(20px);
+      border-radius: 14px;
+      padding: 14px 18px;
+      width: 200px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .float-card:nth-child(2) {
+      animation-delay: 1.5s;
+    }
+
+    .float-card:nth-child(3) {
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .fc-label {
+      font-size: 11px;
+      color: var(--text3);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .fc-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+
+    .fc-sub {
+      font-size: 11px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      background: var(--bg);
+    }
+
+    .auth-box {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .auth-logo-mobile {
+      display: none;
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .auth-logo-mobile em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+      .auth-logo-mobile {
+        display: block;
+      }
+    }
+
+    .auth-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .auth-sub {
+      font-size: 14px;
+      color: var(--text2);
+    }
+
+    /* TABS */
+    .tab-group {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 11px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+      cursor: pointer;
+      color: var(--text2);
+      background: none;
+      transition: all 0.25s;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(108, 92, 231, 0.4);
+    }
+
+    /* FORM */
+    .form-panel {
+      display: none;
+    }
+
+    .form-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .field input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 11px;
+      padding: 13px 16px 13px 42px;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .field input:focus {
+      border-color: var(--accent);
+      background: var(--surface2);
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.18);
+    }
+
+    .field input::placeholder {
+      color: var(--text3);
+    }
+
+    .btn-auth {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+      box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-auth:hover {
+      background: #5a4bd1;
+      box-shadow: 0 6px 28px rgba(108, 92, 231, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .btn-auth:active {
+      transform: none;
+    }
+
+    .btn-auth:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ALERT */
+    .alert {
+      display: none;
+      padding: 13px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .alert.error {
+      background: rgba(225, 112, 85, 0.1);
+      border: 1px solid rgba(225, 112, 85, 0.3);
+      color: var(--red);
+    }
+
+    .alert.success {
+      background: rgba(0, 184, 148, 0.1);
+      border: 1px solid rgba(0, 184, 148, 0.3);
+      color: var(--green);
+    }
+
+    .alert.show {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .divider {
+      text-align: center;
+      color: var(--text3);
+      font-size: 12px;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider::before {
+      left: 0;
+    }
+
+    .divider::after {
+      right: 0;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .strength-bar {
+      height: 3px;
+      border-radius: 2px;
+      margin-top: 6px;
+      background: var(--border);
+    }
+
+    .strength-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .strength-text {
+      font-size: 11px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-grid"></div>
+    <div class="left-content">
+      <div class="brand">
+        <div class="brand-icon">◈</div>
+        <div class="brand-name">Solv<em>It</em></div>
+      </div>
+      <h1 class="left-headline">Solve Real<br />Problems with<br /><span>AI Power</span></h1>
+      <p class="left-sub">Submit civic and social problems, get instant AI-generated solutions, authority guidance, and
+        connect with your community.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="feature-dot">🤖</div>
+          <div class="feature-text"><strong>Instant AI Solutions</strong>Category-aware analysis with step-by-step
+            guidance</div>
+        </div>
+        <div class="feature">
+          <div class="feature-dot">🏛️</div>
+          <div class="feature-text"><strong>Authority Guidance</strong>Know exactly who to contact and how</div>
+        </div>
+        <div class="feature">
+          <div class="feature-dot">💬</div>
+          <div class="feature-text"><strong>Community Chat</strong>Discuss problems with fellow citizens in real-time
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-dot">🗺️</div>
+          <div class="feature-text"><strong>Location Mapping</strong>Pin your problem on an interactive map</div>
+        </div>
+      </div>
+    </div>
+    <div class="float-cards">
+      <div class="float-card">
+        <div class="fc-label">Problems Solved</div>
+        <div class="fc-val" id="fc-total">0</div>
+        <div class="fc-sub">and counting</div>
+      </div>
+      <div class="float-card">
+        <div class="fc-label">Response Rate</div>
+        <div class="fc-val">94%</div>
+        <div class="fc-sub">within 7 days</div>
+      </div>
+      <div class="float-card">
+        <div class="fc-label">Community</div>
+        <div class="fc-val" id="fc-users">—</div>
+        <div class="fc-sub">registered citizens</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="auth-box">
+      <div class="auth-logo-mobile">◈ Solv<em>It</em></div>
+
+      <div class="auth-header">
+        <div class="auth-title" id="auth-title">Welcome Back</div>
+        <div class="auth-sub" id="auth-sub">Login to your SolvIt account</div>
+      </div>
+
+      <div class="tab-group">
+        <button class="tab-btn active" onclick="switchTab('login')" id="tab-login">Login</button>
+        <button class="tab-btn" onclick="switchTab('register')" id="tab-register">Register</button>
+      </div>
+
+      <div id="alert" class="alert"></div>
+
+      <!-- LOGIN FORM -->
+      <div class="form-panel active" id="panel-login">
+        <div class="field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="l-email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="l-password" placeholder="Your password" autocomplete="current-password" />
+          </div>
+        </div>
+        <button class="btn-auth" id="btn-login" onclick="handleLogin()">
+          Login to SolvIt →
+        </button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="form-panel" id="panel-register">
+        <div class="field">
+          <label>Full Name</label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" id="r-name" placeholder="e.g. Rahul Sharma" autocomplete="name" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">✉️</span>
+            <input type="email" id="r-email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="r-password" placeholder="Min 6 characters" autocomplete="new-password"
+              oninput="checkStrength(this.value)" />
+          </div>
+          <div class="strength-bar">
+            <div class="strength-fill" id="strength-fill"></div>
+          </div>
+          <div class="strength-text" id="strength-text"></div>
+        </div>
+        <button class="btn-auth" id="btn-register" onclick="handleRegister()">
+          Create Account →
+        </button>
+      </div>
+
+      <div class="divider">— or —</div>
+      <p style="text-align:center;font-size:13px;color:var(--text3)">
+        By continuing you agree to use this platform responsibly for genuine civic issues.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Redirect if already logged in
+    if (localStorage.getItem('solvit_token')) window.location.href = '/userDashboard.html';
+
+    // Load stats for floating cards
+    fetch('/api/problems').then(r => r.json()).then(data => {
+      document.getElementById('fc-total').textContent = data.length || 0;
+    }).catch(() => { });
+
+    function switchTab(tab) {
+      ['login', 'register'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+        document.getElementById(`panel-${t}`).classList.toggle('active', t === tab);
+      });
+      document.getElementById('auth-title').textContent = tab === 'login' ? 'Welcome Back' : 'Join SolvIt';
+      document.getElementById('auth-sub').textContent = tab === 'login'
+        ? 'Login to your SolvIt account'
+        : 'Create a free account to get started';
+      hideAlert();
+    }
+
+    function showAlert(msg, type) {
+      const el = document.getElementById('alert');
+      el.innerHTML = `<span>${type === 'error' ? '⚠️' : '✓'}</span><span>${msg}</span>`;
+      el.className = `alert ${type} show`;
+    }
+    function hideAlert() {
+      document.getElementById('alert').className = 'alert';
+    }
+
+    function setLoading(btnId, loading) {
+      const btn = document.getElementById(btnId);
+      if (loading) {
+        btn.disabled = true;
+        btn.innerHTML = '<div class="spinner"></div> Please wait…';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = btnId === 'btn-login' ? 'Login to SolvIt →' : 'Create Account →';
+      }
+    }
+
+    function checkStrength(pw) {
+      const fill = document.getElementById('strength-fill');
+      const txt = document.getElementById('strength-text');
+      if (!pw) { fill.style.width = '0'; txt.textContent = ''; return; }
+      let score = 0;
+      if (pw.length >= 6) score++;
+      if (pw.length >= 10) score++;
+      if (/[A-Z]/.test(pw)) score++;
+      if (/[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+      const levels = [
+        { w: '20%', c: '#e17055', t: 'Weak' },
+        { w: '40%', c: '#e17055', t: 'Weak' },
+        { w: '60%', c: '#fdcb6e', t: 'Fair' },
+        { w: '80%', c: '#00b894', t: 'Good' },
+        { w: '100%', c: '#00b894', t: 'Strong ✓' },
+      ];
+      const l = levels[Math.max(0, score - 1)] || levels[0];
+      fill.style.width = l.w;
+      fill.style.background = l.c;
+      txt.style.color = l.c;
+      txt.textContent = `Password strength: ${l.t}`;
+    }
+
+    async function handleLogin() {
+      const email = document.getElementById('l-email').value.trim();
+      const password = document.getElementById('l-password').value;
+      if (!email || !password) return showAlert('Please fill in both fields', 'error');
+      setLoading('btn-login', true); hideAlert();
+      try {
+        const res = await fetch('http://localhost:3000/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) { setLoading('btn-login', false); return showAlert(data.error, 'error'); }
+        localStorage.setItem('solvit_token', data.token);
+        localStorage.setItem('solvit_user', JSON.stringify(data.user));
+        showAlert('Login successful! Redirecting…', 'success');
+        setTimeout(() => window.location.href = '/userDashboard.html', 700);
+      } catch {
+        setLoading('btn-login', false);
+        showAlert('Cannot connect to server. Is it running?', 'error');
+      }
+    }
+
+    async function handleRegister() {
+      const name = document.getElementById('r-name').value.trim();
+      const email = document.getElementById('r-email').value.trim();
+      const password = document.getElementById('r-password').value;
+      if (!name || !email || !password) return showAlert('All fields are required', 'error');
+      if (password.length < 6) return showAlert('Password must be at least 6 characters', 'error');
+      setLoading('btn-register', true); hideAlert();
+      try {
+        const res = await fetch('http://localhost:3000/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) { setLoading('btn-register', false); return showAlert(data.error, 'error'); }
+        localStorage.setItem('solvit_token', data.token);
+        localStorage.setItem('solvit_user', JSON.stringify(data.user));
+        showAlert('Account created! Redirecting…', 'success');
+        setTimeout(() => window.location.href = '/userDashboard.html', 700);
+      } catch {
+        setLoading('btn-register', false);
+        showAlert('Cannot connect to server. Is it running?', 'error');
+      }
+    }
+
+    // Enter key support
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      if (document.getElementById('panel-login').classList.contains('active')) handleLogin();
+      else handleRegister();
+    });
+  </script>
+</body>
+
+</html>

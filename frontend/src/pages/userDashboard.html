@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SolvIt — AI Problem Solver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">◈</span>
+      <span class="logo-text">Solv<em>It</em></span>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" data-section="submit" onclick="showSection('submit')">
+        <span>➕</span> Submit Problem
+      </button>
+      <button class="nav-btn" data-section="browse" onclick="showSection('browse')">
+        <span>📋</span> Browse
+      </button>
+      <button class="nav-btn chat-nav-btn" data-section="chat" onclick="showSection('chat')">
+        <span>💬</span> Community Chat
+        <span class="chat-badge" id="chatBadge" style="display:none">●</span>
+      </button>
+    </nav>
+    <div class="user-area">
+      <div class="user-pill" id="userPill">
+        <div class="user-avatar" id="userAvatar">?</div>
+        <span id="userNameDisplay">Loading…</span>
+      </div>
+      <button class="logout-btn" onclick="logout()" title="Logout">⏻ Logout</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO (only on submit section) -->
+<div class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-pill">Powered by Intelligent AI Analysis</div>
+    <h1 class="hero-title">Your City.<br /><span>Solved.</span></h1>
+    <p class="hero-sub">Submit civic problems, get AI-generated solutions, connect with your community — all in one platform.</p>
+    <div class="stats-row">
+      <div class="stat-item"><span id="st-total">0</span><label>Problems Solved</label></div>
+      <div class="stat-sep"></div>
+      <div class="stat-item"><span id="st-open">0</span><label>Open Cases</label></div>
+      <div class="stat-sep"></div>
+      <div class="stat-item"><span id="st-msgs">0</span><label>Chat Messages</label></div>
+      <div class="stat-sep"></div>
+      <div class="stat-item"><span id="st-users">0</span><label>Community Members</label></div>
+    </div>
+  </div>
+</div>
+
+<main class="main-content">
+
+  <!-- ═══════════════════ SUBMIT SECTION ═══════════════════ -->
+  <section id="section-submit" class="section active">
+    <div class="form-card">
+      <div class="fc-head">
+        <h2>Submit a Problem</h2>
+        <p>Describe your issue — AI will generate a complete solution + authority guidance instantly.</p>
+      </div>
+      <div class="fc-grid">
+        <div class="fc-col">
+          <div class="fld">
+            <label>Problem Title <span class="req">*</span></label>
+            <input type="text" id="f-title" placeholder="e.g. Pothole on MG Road near Market, unfixed for 2 months" />
+          </div>
+          <div class="fld">
+            <label>Full Description <span class="req">*</span></label>
+            <textarea id="f-desc" rows="5" placeholder="What is the problem? When did it start? Who is affected? What have you tried?"></textarea>
+          </div>
+          <div class="fld">
+            <label>Attach Photo <span class="opt">(optional · max 5MB)</span></label>
+            <div class="upload-box" id="uploadBox">
+              <input type="file" id="f-image" accept="image/*" hidden />
+              <div class="upload-ph" id="uploadPh">
+                <span style="font-size:36px">📸</span>
+                <span>Click or drag image here</span>
+                <small>JPG · PNG · WEBP</small>
+              </div>
+              <img id="imgPreview" src="" alt="" style="display:none;max-width:100%;max-height:220px;border-radius:10px;object-fit:cover" />
+            </div>
+          </div>
+        </div>
+        <div class="fc-col">
+          <div class="fld">
+            <label>Pin Your Location <span class="opt">(click map)</span></label>
+            <div id="submitMap"></div>
+            <div class="loc-row" id="locRow"><span>📍</span><span id="locText">No location selected</span></div>
+          </div>
+          <div class="fld">
+            <label>Problem Category <span class="opt">(auto-detected by AI)</span></label>
+            <div class="pills" id="catPills">
+              <span class="pill active" data-cat="default">🔎 Other</span>
+              <span class="pill" data-cat="road">🛣️ Road</span>
+              <span class="pill" data-cat="water">💧 Water</span>
+              <span class="pill" data-cat="electricity">⚡ Electric</span>
+              <span class="pill" data-cat="garbage">🗑️ Garbage</span>
+              <span class="pill" data-cat="health">🏥 Health</span>
+              <span class="pill" data-cat="pollution">🌫️ Pollution</span>
+              <span class="pill" data-cat="education">📚 Education</span>
+              <span class="pill" data-cat="flood">🌊 Flood</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-foot">
+        <button class="btn-primary big" id="submitBtn" onclick="submitProblem()">
+          <span>◈</span> Analyze & Solve with AI
+        </button>
+        <p class="fc-note">Your submission is stored locally and shared with the community for collective action.</p>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="resultCard" class="result-card" style="display:none"></div>
+    <!-- SIMILAR -->
+    <div id="similarCard" class="similar-card" style="display:none"></div>
+  </section>
+
+  <!-- ═══════════════════ BROWSE SECTION ═══════════════════ -->
+  <section id="section-browse" class="section">
+    <div class="browse-top">
+      <h2>Community Problems</h2>
+      <div class="browse-filters">
+        <input type="text" id="srchInput" placeholder="🔍 Search…" oninput="filterProblems()" />
+        <select id="srchCat" onchange="filterProblems()">
+          <option value="">All Categories</option>
+          <option value="road">🛣️ Road</option>
+          <option value="water">💧 Water</option>
+          <option value="electricity">⚡ Electricity</option>
+          <option value="garbage">🗑️ Garbage</option>
+          <option value="health">🏥 Health</option>
+          <option value="pollution">🌫️ Pollution</option>
+          <option value="education">📚 Education</option>
+          <option value="flood">🌊 Flood</option>
+        </select>
+        <select id="srchStatus" onchange="filterProblems()">
+          <option value="">All Status</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+      </div>
+    </div>
+    <div class="problems-grid" id="problemsGrid">
+      <div class="grid-loading">Loading problems…</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ CHAT SECTION ═══════════════════ -->
+  <section id="section-chat" class="section">
+    <div class="chat-layout">
+
+      <!-- SIDEBAR: Rooms -->
+      <div class="chat-sidebar">
+        <div class="chat-sidebar-head">
+          <h3>💬 Chat Rooms</h3>
+          <p>Select a room to join</p>
+        </div>
+        <div class="room-list" id="roomList">
+          <div class="room-loading">Loading rooms…</div>
+        </div>
+        <div class="chat-sidebar-foot">
+          <div class="online-dot"></div>
+          <span id="chatUserName">You</span>
+          <span style="color:var(--text3);font-size:12px">· Online</span>
+        </div>
+      </div>
+
+      <!-- MAIN CHAT AREA -->
+      <div class="chat-main">
+        <div class="chat-main-head">
+          <div>
+            <div class="chat-room-name" id="chatRoomName">Select a Room</div>
+            <div class="chat-room-sub" id="chatRoomSub">Choose a room from the left to start chatting</div>
+          </div>
+          <div class="chat-head-right">
+            <span class="chat-online-badge">🟢 Live</span>
+            <button class="btn-sm" onclick="refreshChat()" title="Refresh">↻ Refresh</button>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-empty">
+            <div style="font-size:48px;margin-bottom:16px">💬</div>
+            <h3>Welcome to Community Chat</h3>
+            <p>Select a room from the sidebar to start chatting with fellow citizens about local issues.</p>
+          </div>
+        </div>
+
+        <div class="chat-input-area" id="chatInputArea">
+          <div class="chat-room-tag" id="chatRoomTag"># Select a room first</div>
+          <div class="chat-input-row">
+            <input type="text" id="chatInput" placeholder="Type your message…" disabled
+              onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); sendMessage(); }" />
+            <button class="btn-send" id="sendBtn" onclick="sendMessage()" disabled>
+              ➤ Send
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- PROBLEM MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-content" id="modalContent">Loading…</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

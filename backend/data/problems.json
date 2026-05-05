@@ -1,0 +1,149 @@
+{
+  "problems": [
+    {
+      "id": "d1a08072-f9b9-4b0e-8b46-2ff810091fac",
+      "title": "Pothole on our street",
+      "description": "Getting to much trouble",
+      "userName": "Rahul Sharma",
+      "userId": "a270675d-4c54-422a-abfc-ad505e95b3ac",
+      "userAvatar": "R",
+      "location": null,
+      "image": "/uploads/b7be55d3-66d9-4d43-89f5-066e1fb8237f.jpg",
+      "category": "road",
+      "aiSolution": "**Problem Analysis:** Road damage is a public safety hazard and authorities have legal obligation to repair it promptly.\n\n**Root Cause:** Potholes form due to poor drainage, overloaded vehicles, aging bitumen surfaces, or substandard construction materials.\n\n**Immediate Action:** Alert local police to place warning cones if accident-prone. File complaint on CPGRAMS with exact GPS coordinates and photos.\n\n**Long-Term Fix:** Demand construction using CC (Cement Concrete) roads instead of bitumen for permanent solution. Push for proper drainage channels alongside road repair.\n\n**Legal Angle:** Under Motor Vehicles Act, if an accident occurs due to a pothole, the responsible authority can be held liable for negligence. Use this as leverage in your complaint.",
+      "authority": {
+        "authority": "Public Works Department (PWD) / NHAI for Highways",
+        "platform": "MyGov Portal / CPGRAMS (cpgrams.gov.in) / State PWD website",
+        "steps": [
+          "Photograph road damage with landmarks visible",
+          "Note exact GPS location and nearest landmark",
+          "File on CPGRAMS portal or PWD website",
+          "Contact local Ward Councillor for faster action",
+          "Quote Motor Vehicles Act if accident risk exists",
+          "Follow up weekly with complaint reference number"
+        ]
+      },
+      "status": "Open",
+      "votes": 1,
+      "votedBy": [
+        "a270675d-4c54-422a-abfc-ad505e95b3ac"
+      ],
+      "comments": [
+        {
+          "id": "c735524d-5458-46fe-aecc-ec6987b4c3c2",
+          "userId": "a270675d-4c54-422a-abfc-ad505e95b3ac",
+          "userName": "Rahul Sharma",
+          "userAvatar": "R",
+          "text": "Contact your nearby authority",
+          "createdAt": "2026-04-28T12:36:48.707Z"
+        }
+      ],
+      "createdAt": "2026-04-28T12:36:02.493Z"
+    },
+    {
+      "id": "a4656c51-0edd-4d2c-b9b2-aba95e9b1b55",
+      "title": "Test Problem",
+      "description": "This is a test problem from restructured app",
+      "userName": "Test User",
+      "userId": "26eeea04-162d-40eb-a931-031848ea5205",
+      "userAvatar": "T",
+      "location": null,
+      "image": null,
+      "category": "default",
+      "aiSolution": "**Problem Analysis:** Your problem has been categorized and a structured solution plan has been created.\n\n**Root Cause:** Civic problems typically arise from lack of accountability, resource constraints, or communication gaps between citizens and authorities.\n\n**Immediate Action:** Document everything with timestamps, photos, and witness contacts. Rally at least 5–10 neighbors to file the same complaint — collective complaints are prioritized.\n\n**Escalation Strategy:** Local Office → District Collector → State Grievance Portal → National CPGRAMS. Each escalation level typically gets 3× faster response.\n\n**Power Tools:** (1) RTI — Right to Information Act to track inaction. (2) Consumer Forum for service failures. (3) Lokayukt for government negligence. Always get a complaint number and follow up in writing every 7 days.",
+      "authority": {
+        "authority": "District Collector / Grievance Redressal Cell",
+        "platform": "CPGRAMS (cpgrams.gov.in) / State CM Helpline / Lokayukt",
+        "steps": [
+          "Gather evidence: photos, documents, dates, witnesses",
+          "Visit nearest government office related to your issue",
+          "File written complaint, get acknowledgment receipt",
+          "Use CPGRAMS portal for central government issues",
+          "Use State CM Helpline for state government issues",
+          "Approach Consumer Forum or Lokayukt if needed",
+          "File RTI if information is being withheld"
+        ]
+      },
+      "status": "Open",
+      "votes": 0,
+      "votedBy": [],
+      "comments": [],
+      "createdAt": "2026-04-28T13:34:25.134Z"
+    },
+    {
+      "id": "0ec92b03-9295-420c-9d82-0139f25aa3f4",
+      "title": "ugjgjgjgj",
+      "description": "ououououoo ououououo",
+      "userName": "kaushal sharma",
+      "userId": "405ecb7b-c4d0-4f22-8d24-54d4d1dd95d2",
+      "userAvatar": "K",
+      "location": {
+        "lat": 22.366332225824646,
+        "lng": 79.80468750000001,
+        "name": "Chirchira, Keolari Tahsil, Seoni, Madhya Pradesh, India"
+      },
+      "image": "/uploads/00b7ce85-e9eb-4471-b2af-299314f1ccb8.jpg",
+      "category": "default",
+      "aiSolution": "**Problem Analysis:** Your problem has been categorized and a structured solution plan has been created.\n\n**Root Cause:** Civic problems typically arise from lack of accountability, resource constraints, or communication gaps between citizens and authorities.\n\n**Immediate Action:** Document everything with timestamps, photos, and witness contacts. Rally at least 5–10 neighbors to file the same complaint — collective complaints are prioritized.\n\n**Escalation Strategy:** Local Office → District Collector → State Grievance Portal → National CPGRAMS. Each escalation level typically gets 3× faster response.\n\n**Power Tools:** (1) RTI — Right to Information Act to track inaction. (2) Consumer Forum for service failures. (3) Lokayukt for government negligence. Always get a complaint number and follow up in writing every 7 days.",
+      "authority": {
+        "authority": "District Collector / Grievance Redressal Cell",
+        "platform": "CPGRAMS (cpgrams.gov.in) / State CM Helpline / Lokayukt",
+        "steps": [
+          "Gather evidence: photos, documents, dates, witnesses",
+          "Visit nearest government office related to your issue",
+          "File written complaint, get acknowledgment receipt",
+          "Use CPGRAMS portal for central government issues",
+          "Use State CM Helpline for state government issues",
+          "Approach Consumer Forum or Lokayukt if needed",
+          "File RTI if information is being withheld"
+        ]
+      },
+      "status": "Open",
+      "votes": 1,
+      "votedBy": [
+        "405ecb7b-c4d0-4f22-8d24-54d4d1dd95d2"
+      ],
+      "comments": [
+        {
+          "id": "141f4e48-c2b1-4ec3-8f9e-3d5edc6dc3df",
+          "userId": "405ecb7b-c4d0-4f22-8d24-54d4d1dd95d2",
+          "userName": "kaushal sharma",
+          "userAvatar": "K",
+          "text": "gqufqy",
+          "createdAt": "2026-04-28T13:39:34.917Z"
+        }
+      ],
+      "createdAt": "2026-04-28T13:39:12.586Z"
+    },
+    {
+      "id": "68d28e9a-691c-4b34-a3e4-d9655fc42073",
+      "title": "Test Problem After Fix",
+      "description": "Testing after fixing upload path issue",
+      "userName": "Test User",
+      "userId": "26eeea04-162d-40eb-a931-031848ea5205",
+      "userAvatar": "T",
+      "location": null,
+      "image": null,
+      "category": "default",
+      "aiSolution": "**Problem Analysis:** Your problem has been categorized and a structured solution plan has been created.\n\n**Root Cause:** Civic problems typically arise from lack of accountability, resource constraints, or communication gaps between citizens and authorities.\n\n**Immediate Action:** Document everything with timestamps, photos, and witness contacts. Rally at least 5–10 neighbors to file the same complaint — collective complaints are prioritized.\n\n**Escalation Strategy:** Local Office → District Collector → State Grievance Portal → National CPGRAMS. Each escalation level typically gets 3× faster response.\n\n**Power Tools:** (1) RTI — Right to Information Act to track inaction. (2) Consumer Forum for service failures. (3) Lokayukt for government negligence. Always get a complaint number and follow up in writing every 7 days.",
+      "authority": {
+        "authority": "District Collector / Grievance Redressal Cell",
+        "platform": "CPGRAMS (cpgrams.gov.in) / State CM Helpline / Lokayukt",
+        "steps": [
+          "Gather evidence: photos, documents, dates, witnesses",
+          "Visit nearest government office related to your issue",
+          "File written complaint, get acknowledgment receipt",
+          "Use CPGRAMS portal for central government issues",
+          "Use State CM Helpline for state government issues",
+          "Approach Consumer Forum or Lokayukt if needed",
+          "File RTI if information is being withheld"
+        ]
+      },
+      "status": "Open",
+      "votes": 0,
+      "votedBy": [],
+      "comments": [],
+      "createdAt": "2026-04-28T13:41:07.724Z"
+    }
+  ]
+}

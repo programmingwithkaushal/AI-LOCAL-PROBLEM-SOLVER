@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "a270675d-4c54-422a-abfc-ad505e95b3ac",
+      "name": "Rahul Sharma",
+      "email": "kaushal.aiml.000@gmail.com",
+      "password": "$2a$12$u3VuDdPAsyRa94OY/H3Pd.xRO/16X3vf8vmmvrZZdZUea7/pBf.F.",
+      "avatar": "R",
+      "createdAt": "2026-04-28T12:25:26.072Z"
+    },
+    {
+      "id": "b270675d-4c54-422a-abfc-ad505e95b3ac",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "$2a$12$u3VuDdPAsyRa94OY/H3Pd.xRO/16X3vf8vmmvrZZdZUea7/pBf.F.",
+      "avatar": "J",
+      "createdAt": "2026-04-28T12:25:26.072Z"
+    },
+    {
+      "id": "26eeea04-162d-40eb-a931-031848ea5205",
+      "name": "Test User",
+      "email": "test@example.com",
+      "password": "$2a$12$cygOiULyjgIvtgs9KjM1rOOjvM0C/t.ZLVbUjKKkd3pC2KKAMnMSq",
+      "avatar": "T",
+      "createdAt": "2026-04-28T13:26:37.861Z"
+    },
+    {
+      "id": "405ecb7b-c4d0-4f22-8d24-54d4d1dd95d2",
+      "name": "kaushal sharma",
+      "email": "kaushalji152@gmail.com",
+      "password": "$2a$12$sXhsvSwVAPxj5k8.jegPo.owYgbZ1i/WXb/hudHF1oon4Rt9MxLbi",
+      "avatar": "K",
+      "createdAt": "2026-04-28T13:29:01.753Z"
+    }
+  ]
+}

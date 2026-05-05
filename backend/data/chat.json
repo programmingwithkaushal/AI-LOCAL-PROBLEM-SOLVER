@@ -1,0 +1,13 @@
+{
+  "messages": [
+    {
+      "id": "8aceaed1-ec95-487b-920e-f7b8a4cb53ca",
+      "userId": "26eeea04-162d-40eb-a931-031848ea5205",
+      "userName": "Test User",
+      "userAvatar": "T",
+      "text": "Hello from restructured app!",
+      "room": "General",
+      "createdAt": "2026-04-28T13:34:38.472Z"
+    }
+  ]
+}
