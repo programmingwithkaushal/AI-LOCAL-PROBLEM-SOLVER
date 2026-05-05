@@ -3,6 +3,13 @@ const router = express.Router();
 const Groq = require("groq-sdk");
 const { requireAuth } = require("../middleware/auth");
 
+// Diagnostic endpoint — check if GROQ_API_KEY is present (no auth needed)
+router.get("/status", (req, res) => {
+  const keyPresent = !!process.env.GROQ_API_KEY;
+  const keyPrefix = keyPresent ? process.env.GROQ_API_KEY.substring(0, 10) + "..." : "NOT SET";
+  res.json({ groqKeyPresent: keyPresent, keyPrefix });
+});
+
 router.post("/chat", requireAuth, async (req, res) => {
   try {
     const { message } = req.body;
@@ -11,7 +18,7 @@ router.post("/chat", requireAuth, async (req, res) => {
     }
 
     if (!process.env.GROQ_API_KEY) {
-      return res.json({ reply: "Warning: GROQ_API_KEY is not configured in the environment variables. Please add it to use the AI." });
+      return res.json({ reply: "GROQ_API_KEY is not set on the server. Please add it to Railway Variables." });
     }
 
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
@@ -27,8 +34,8 @@ router.post("/chat", requireAuth, async (req, res) => {
     const reply = chatCompletion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
     res.json({ reply });
   } catch (error) {
-    console.error("AI Chatbot error:", error.message);
-    res.status(500).json({ error: "Failed to communicate with AI server" });
+    console.error("AI Chatbot error:", error.message, error.stack);
+    res.status(500).json({ error: `AI Error: ${error.message}` });
   }
 });
 
