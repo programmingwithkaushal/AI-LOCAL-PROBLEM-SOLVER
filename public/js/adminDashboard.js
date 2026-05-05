@@ -1,5 +1,5 @@
 // Admin Dashboard JavaScript
-const API = 'http://localhost:3000/api';
+const API = '/api';
 
 let adminData = null;
 

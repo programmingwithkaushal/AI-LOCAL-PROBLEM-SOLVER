@@ -1,5 +1,5 @@
 // Profile JavaScript
-const API = "http://localhost:3000/api";
+const API = "/api";
 
 // Get auth data
 const TOKEN = localStorage.getItem("solvit_token");

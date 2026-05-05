@@ -3,7 +3,7 @@
 //  Auth Guard · Problems · Community Chat
 // ═══════════════════════════════════════════════════════════════════
 
-const API = "http://localhost:3000/api";
+const API = "/api";
 
 // ── Auth Guard ──────────────────────────────────────────────────────
 const TOKEN = localStorage.getItem("solvit_token");

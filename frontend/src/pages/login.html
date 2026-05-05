@@ -405,7 +405,7 @@
     if (!email || !password) return showAlert('Please fill in both fields', 'error');
     setLoading('btn-login', true); hideAlert();
     try {
-      const res = await fetch('http://localhost:3000/api/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -430,7 +430,7 @@
     if (password.length < 6) return showAlert('Password must be at least 6 characters', 'error');
     setLoading('btn-register', true); hideAlert();
     try {
-      const res = await fetch('http://localhost:3000/api/auth/register', {
+      const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
